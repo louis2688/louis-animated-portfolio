@@ -36,8 +36,8 @@ export default function Nav() {
         </a>
         <nav className="nav-links" aria-label="Sections">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
+            <a key={l.href} href={l.href} data-label={l.label}>
+              <span>{l.label}</span>
             </a>
           ))}
         </nav>

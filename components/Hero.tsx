@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { heroStats, profile } from "@/data/content";
+import HeroParticles from "@/components/HeroParticles";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,10 +46,8 @@ export default function Hero({ entered }: { entered: boolean }) {
 
   return (
     <section id="top" ref={root} className="hero">
-      {/* Reel slot: replace the decorative grid with a Three.js <canvas>
-          or a <video src="/reel.mp4" autoPlay muted loop playsInline /> */}
       <div className="hero-media" id="reel-slot" aria-hidden="true">
-        <span className="hero-media-note caption">{"// reel-slot — mount three.js canvas or bg video here"}</span>
+        <HeroParticles />
       </div>
 
       <div className="container-wide hero-inner">

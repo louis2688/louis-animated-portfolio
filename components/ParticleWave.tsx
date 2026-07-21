@@ -19,8 +19,8 @@ export default function ParticleWave() {
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = mount.clientWidth < 640;
 
-    const COLS = small ? 48 : 80;
-    const ROWS = small ? 24 : 40;
+    const COLS = small ? 34 : 54;
+    const ROWS = small ? 18 : 27;
     const SEP = 0.5;
     const count = COLS * ROWS;
 
@@ -61,8 +61,8 @@ export default function ParticleWave() {
 
     const material = new THREE.ShaderMaterial({
       uniforms: {
-        uHi: { value: new THREE.Color(0x5ab0ff) },
-        uLo: { value: new THREE.Color(0x0066e0) },
+        uHi: { value: new THREE.Color(0x63769b) },
+        uLo: { value: new THREE.Color(0x232e44) },
       },
       vertexShader: `
         attribute float scale;
@@ -70,7 +70,7 @@ export default function ParticleWave() {
         void main() {
           vH = position.y;
           vec4 mv = modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = scale * (280.0 / -mv.z);
+          gl_PointSize = scale * (200.0 / -mv.z);
           gl_Position = projectionMatrix * mv;
         }
       `,
@@ -81,14 +81,14 @@ export default function ParticleWave() {
         void main() {
           float d = distance(gl_PointCoord, vec2(0.5));
           if (d > 0.5) discard;
-          float alpha = smoothstep(0.5, 0.05, d);
+          float alpha = smoothstep(0.5, 0.05, d) * 0.85;
           vec3 col = mix(uLo, uHi, clamp(vH * 0.35 + 0.5, 0.0, 1.0));
           gl_FragColor = vec4(col, alpha);
         }
       `,
       transparent: true,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NormalBlending,
     });
 
     const points = new THREE.Points(geometry, material);
@@ -111,11 +111,11 @@ export default function ParticleWave() {
         const x = baseX[k];
         const z = baseZ[k];
         const y =
-          Math.sin(x * 0.35 + t) * 0.9 +
-          Math.sin(z * 0.5 + t * 1.15) * 0.9 +
-          Math.sin((x + z) * 0.22 + t * 0.8) * 0.5;
+          Math.sin(x * 0.3 + t) * 0.55 +
+          Math.sin(z * 0.42 + t * 1.1) * 0.55 +
+          Math.sin((x + z) * 0.2 + t * 0.7) * 0.28;
         posAttr.setY(k, y);
-        scaleAttr.setX(k, (Math.sin(x * 0.35 + t) + 1.6) * 1.1);
+        scaleAttr.setX(k, (Math.sin(x * 0.3 + t) + 1.8) * 0.8);
       }
       posAttr.needsUpdate = true;
       scaleAttr.needsUpdate = true;
@@ -126,7 +126,7 @@ export default function ParticleWave() {
     let running = false;
     const render = () => {
       if (!running) return;
-      t += 0.018;
+      t += 0.010;
       wave(t);
       eased.x += (target.x - eased.x) * 0.045;
       eased.y += (target.y - eased.y) * 0.045;

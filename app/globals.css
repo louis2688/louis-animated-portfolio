@@ -246,7 +246,7 @@ section[id], div[id] {
 }
 .overlay-title {
   color: #fff;
-  font-size: clamp(1.6rem, 5.5vw, 3.75rem);
+  font-size: 1.75rem;
   font-weight: 700;
   line-height: 1.3;
   letter-spacing: 0.04em;
@@ -304,14 +304,35 @@ section[id], div[id] {
   gap: 28px;
 }
 .nav-links a {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
   font-size: 0.875rem;
   font-weight: 500;
   letter-spacing: 0.08em;
+  line-height: 1.25;
   color: var(--mute);
-  transition: color 0.2s;
 }
-.nav-links a:hover {
+.nav-links a > span {
+  display: inline-block;
+  transition: transform 0.42s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.nav-links a::after {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  top: 0;
   color: var(--accent-bright);
+  transform: translateY(115%);
+  transition: transform 0.42s cubic-bezier(0.7, 0, 0.2, 1);
+}
+.nav-links a:hover > span,
+.nav-links a:focus-visible > span {
+  transform: translateY(-115%);
+}
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  transform: translateY(0);
 }
 .nav-theme {
   background: transparent;
@@ -347,35 +368,17 @@ section[id], div[id] {
   inset: 0;
   background: var(--surface-dark);
 }
-.hero-media::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image: linear-gradient(rgba(0, 122, 255, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 122, 255, 0.07) 1px, transparent 1px);
-  background-size: 56px 56px;
-  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 25%, transparent 78%);
-  mask-image: radial-gradient(ellipse 85% 75% at 50% 45%, #000 25%, transparent 78%);
-  animation: grid-drift 26s linear infinite;
-}
 .hero-media::after {
   content: "";
   position: absolute;
   inset: 0;
   background: radial-gradient(ellipse 60% 42% at 50% 92%, rgba(0, 122, 255, 0.16), transparent 70%);
 }
-@keyframes grid-drift {
-  from { background-position: 0 0, 0 0; }
-  to { background-position: 0 56px, 56px 0; }
-}
-.hero-media-note {
+.hero-particles {
   position: absolute;
-  bottom: 14px;
-  right: 24px;
-  color: #33394a;
-  z-index: 1;
+  inset: 0;
+  z-index: 0;
 }
-
 .hero-inner {
   position: relative;
   z-index: 2;
@@ -1048,9 +1051,6 @@ section[id], div[id] {
   }
   .cursor,
   .pulse,
-  .hero-media::before {
-    animation: none;
-  }
   *,
   *::before,
   *::after {

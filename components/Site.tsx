@@ -1,19 +1,14 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import WelcomeOverlay from "@/components/WelcomeOverlay";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import WorkGrid from "@/components/WorkGrid";
-import ProjectsDone from "@/components/ProjectsDone";
 import AboutPipeline from "@/components/AboutPipeline";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
+import { loadGsap } from "@/lib/gsap";
 
 export default function Site() {
   const [entered, setEntered] = useState(false);
@@ -27,24 +22,31 @@ export default function Site() {
     };
   }, [entered]);
 
-  // Shared scroll-reveal for anything tagged data-reveal.
-  useGSAP(
-    () => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-      gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
-        gsap.from(el, {
-          y: 36,
-          autoAlpha: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          // Drop GSAP's leftover inline transform so the CSS :hover lift works.
-          clearProps: "transform",
-          scrollTrigger: { trigger: el, start: "top 86%" },
+  // Shared scroll-reveal for anything tagged data-reveal. GSAP loads lazily.
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled || !mainRef.current) return;
+      ctx = gsap.context(() => {
+        gsap.utils.toArray<HTMLElement>("[data-reveal]").forEach((el) => {
+          gsap.from(el, {
+            y: 36,
+            autoAlpha: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            clearProps: "transform",
+            scrollTrigger: { trigger: el, start: "top 86%" },
+          });
         });
-      });
-    },
-    { scope: mainRef }
-  );
+      }, mainRef.current);
+    });
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, []);
 
   return (
     <>
@@ -53,7 +55,6 @@ export default function Site() {
       <main ref={mainRef}>
         <Hero entered={entered} />
         <WorkGrid />
-        <ProjectsDone />
         <AboutPipeline />
         <Contact />
       </main>

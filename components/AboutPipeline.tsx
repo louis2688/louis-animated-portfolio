@@ -1,50 +1,53 @@
 "use client";
 
-import { useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef } from "react";
 import { pipeline, profile, socials } from "@/data/content";
-
-gsap.registerPlugin(ScrollTrigger);
+import { loadGsap } from "@/lib/gsap";
 
 export default function AboutPipeline() {
   const root = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
 
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+    loadGsap().then(({ gsap, ScrollTrigger }) => {
+      if (cancelled || !root.current) return;
+      ctx = gsap.context(() => {
+        // Blue progress line draws down the track as you scroll.
+        if (!reduce) {
+          gsap.to(progressRef.current, {
+            scaleY: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: listRef.current,
+              start: "top 75%",
+              end: "bottom 45%",
+              scrub: 0.4,
+            },
+          });
+        } else {
+          gsap.set(progressRef.current, { scaleY: 1 });
+        }
 
-      // Blue progress line draws down the track as you scroll.
-      if (!reduce) {
-        gsap.to(progressRef.current, {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: listRef.current,
-            start: "top 75%",
-            end: "bottom 45%",
-            scrub: 0.4,
-          },
+        // Stages light up while they cross the viewport band.
+        gsap.utils.toArray<HTMLElement>(".stage").forEach((el) => {
+          ScrollTrigger.create({
+            trigger: el,
+            start: "top 68%",
+            end: "bottom 30%",
+            toggleClass: { targets: el, className: "is-active" },
+          });
         });
-      } else {
-        gsap.set(progressRef.current, { scaleY: 1 });
-      }
-
-      // Stages light up while they cross the viewport band.
-      gsap.utils.toArray<HTMLElement>(".stage").forEach((el) => {
-        ScrollTrigger.create({
-          trigger: el,
-          start: "top 68%",
-          end: "bottom 30%",
-          toggleClass: { targets: el, className: "is-active" },
-        });
-      });
-    },
-    { scope: root }
-  );
+      }, root.current);
+    });
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, []);
 
   return (
     <section id="about" ref={root} className="section">

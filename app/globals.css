@@ -1129,3 +1129,31 @@ section[id], div[id] {
 .project-name-link:hover {
   color: var(--accent-bright);
 }
+
+/* ---------- welcome overlay animation (CSS, GSAP-free) ---------- */
+
+.overlay {
+  transition: opacity 0.6s ease;
+}
+.overlay.is-leaving {
+  opacity: 0;
+  pointer-events: none;
+}
+.overlay-inner > * {
+  opacity: 0;
+  animation: overlayIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.overlay-inner > :nth-child(1) { animation-delay: 0.15s; }
+.overlay-inner > :nth-child(2) { animation-delay: 0.24s; }
+.overlay-inner > :nth-child(3) { animation-delay: 0.33s; }
+.overlay-inner > :nth-child(4) { animation-delay: 0.42s; }
+@keyframes overlayIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .overlay-inner > * {
+    animation: none;
+    opacity: 1;
+  }
+}

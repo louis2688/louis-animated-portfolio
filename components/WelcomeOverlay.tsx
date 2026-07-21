@@ -1,59 +1,33 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import { useEffect, useRef, useState } from "react";
 
+/**
+ * Welcome splash. Intro and exit are pure CSS so the first screen paints
+ * without waiting on GSAP (which loads lazily in the background). Keeps the
+ * focus trap, Enter/Space key, and reduced-motion handling.
+ */
 export default function WelcomeOverlay({ onEnter }: { onEnter: () => void }) {
-  const root = useRef<HTMLDivElement>(null);
   const btnRef = useRef<HTMLButtonElement>(null);
-  const leaving = useRef(false);
+  const leavingRef = useRef(false);
+  const [leaving, setLeaving] = useState(false);
 
-  const { contextSafe } = useGSAP(
-    () => {
-      // Match the rest of the site: no motion for reduced-motion users.
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.set("[data-w]", { autoAlpha: 1, y: 0 });
-        return;
-      }
-      gsap.from("[data-w]", {
-        y: 28,
-        autoAlpha: 0,
-        duration: 0.9,
-        stagger: 0.09,
-        ease: "power3.out",
-        delay: 0.15,
-      });
-    },
-    { scope: root }
-  );
-
-  const handleEnter = contextSafe(() => {
-    if (leaving.current) return;
-    leaving.current = true;
-
+  const handleEnter = () => {
+    if (leavingRef.current) return;
+    leavingRef.current = true;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       onEnter();
       return;
     }
-    gsap
-      .timeline({ onComplete: onEnter })
-      .to("[data-w]", {
-        y: -24,
-        autoAlpha: 0,
-        duration: 0.45,
-        stagger: 0.05,
-        ease: "power2.in",
-      })
-      .to(root.current, { autoAlpha: 0, duration: 0.6, ease: "power2.inOut" }, "-=0.2");
-  });
+    setLeaving(true);
+    window.setTimeout(onEnter, 640); // matches the CSS fade-out
+  };
 
-  // Keep the latest handler reachable from the stable keydown listener below.
+  // Keep the latest handler reachable from the stable keydown listener.
   const enterRef = useRef(handleEnter);
   enterRef.current = handleEnter;
 
-  // While the modal is up: make the page behind it inert (real focus trap),
-  // and let the physical Enter/Space key fire the button even if focus wanders.
+  // Make the page behind the modal inert, and let Enter/Space fire the button.
   useEffect(() => {
     const bg = document.querySelectorAll("header.nav, main, footer.footer");
     bg.forEach((el) => el.setAttribute("inert", ""));
@@ -63,7 +37,6 @@ export default function WelcomeOverlay({ onEnter }: { onEnter: () => void }) {
         e.preventDefault();
         enterRef.current();
       } else if (e.key === "Tab") {
-        // The overlay holds a single focusable control — hold focus on it.
         e.preventDefault();
         btnRef.current?.focus();
       }
@@ -76,24 +49,25 @@ export default function WelcomeOverlay({ onEnter }: { onEnter: () => void }) {
   }, []);
 
   return (
-    <div ref={root} className="overlay" role="dialog" aria-modal="true" aria-label="Welcome">
+    <div
+      className={`overlay${leaving ? " is-leaving" : ""}`}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Welcome"
+    >
       <div className="overlay-inner">
-        <p className="overlay-kicker caption" data-w>
-          {"// PORTFOLIO — v2.026"}
-        </p>
-        <p className="overlay-title" data-w>
+        <p className="overlay-kicker caption">{"// PORTFOLIO — v2.026"}</p>
+        <p className="overlay-title">
           WELCOME TO
           <br />
           LOUIS MADRIGAL&apos;S
           <br />
           PORTFOLIO<span className="cursor">▮</span>
         </p>
-        <button ref={btnRef} className="btn-neon" data-w autoFocus onClick={handleEnter}>
+        <button ref={btnRef} className="btn-neon" autoFocus onClick={handleEnter}>
           [ ENTER ]
         </button>
-        <p className="overlay-hint caption" data-w>
-          PRESS ENTER ↵
-        </p>
+        <p className="overlay-hint caption">PRESS ENTER ↵</p>
       </div>
     </div>
   );

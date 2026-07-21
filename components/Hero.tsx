@@ -1,56 +1,60 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import { heroStats, profile } from "@/data/content";
 import { useHeavyFx } from "@/lib/useHeavyFx";
+import { loadGsap } from "@/lib/gsap";
+
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), {
   ssr: false,
 });
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero({ entered }: { entered: boolean }) {
   const root = useRef<HTMLElement>(null);
   const heavyFx = useHeavyFx();
 
-  useGSAP(
-    () => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-      // Intro plays once the welcome overlay is dismissed.
-      if (entered && !reduce) {
-        gsap
-          .timeline({ defaults: { ease: "power4.out" } })
-          .from(".hero-line > span", { yPercent: 118, duration: 1.1, stagger: 0.12 }, 0.1)
-          .from(
-            "[data-h]",
-            { y: 24, autoAlpha: 0, duration: 0.8, ease: "power3.out", stagger: 0.08 },
-            "-=0.7"
-          );
-      }
-
-      if (!reduce) {
-        gsap.to(".hero-media", {
-          yPercent: 16,
-          ease: "none",
-          scrollTrigger: {
-            trigger: root.current,
-            start: "top top",
-            end: "bottom top",
-            scrub: true,
-          },
-        });
-      }
-    },
-    { scope: root, dependencies: [entered], revertOnUpdate: true }
-  );
+  useEffect(() => {
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let ctx: { revert: () => void } | undefined;
+    let cancelled = false;
+    loadGsap().then(({ gsap }) => {
+      if (cancelled || !root.current) return;
+      ctx = gsap.context(() => {
+        // Intro plays once the welcome overlay is dismissed.
+        if (entered && !reduce) {
+          gsap
+            .timeline({ defaults: { ease: "power4.out" } })
+            .from(".hero-line > span", { yPercent: 118, duration: 1.1, stagger: 0.12 }, 0.1)
+            .from(
+              "[data-h]",
+              { y: 24, autoAlpha: 0, duration: 0.8, ease: "power3.out", stagger: 0.08 },
+              "-=0.7"
+            );
+        }
+        if (!reduce) {
+          gsap.to(".hero-media", {
+            yPercent: 16,
+            ease: "none",
+            scrollTrigger: {
+              trigger: root.current,
+              start: "top top",
+              end: "bottom top",
+              scrub: true,
+            },
+          });
+        }
+      }, root.current);
+    });
+    return () => {
+      cancelled = true;
+      ctx?.revert();
+    };
+  }, [entered]);
 
   return (
     <section id="top" ref={root} className="hero">
+      {/* Interactive particle field (capable devices only) or CSS fallback. */}
       <div className="hero-media" id="reel-slot" aria-hidden="true">
         {heavyFx && <HeroParticles />}
       </div>

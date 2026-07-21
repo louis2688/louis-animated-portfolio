@@ -1,11 +1,14 @@
 "use client";
 
 import { useRef } from "react";
+import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { heroStats, profile } from "@/data/content";
-import HeroParticles from "@/components/HeroParticles";
+const HeroParticles = dynamic(() => import("@/components/HeroParticles"), {
+  ssr: false,
+});
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -1,5 +1,11 @@
+"use client";
+
 import { projects, type Project } from "@/data/content";
-import ParticleWave from "@/components/ParticleWave";
+import dynamic from "next/dynamic";
+
+const ParticleWave = dynamic(() => import("@/components/ParticleWave"), {
+  ssr: false,
+});
 
 function WorkCard({ p, i }: { p: Project; i: number }) {
   return (

@@ -81,13 +81,13 @@ export default function WelcomeOverlay({ onEnter }: { onEnter: () => void }) {
         <p className="overlay-kicker caption" data-w>
           {"// PORTFOLIO — v2.026"}
         </p>
-        <h1 className="overlay-title" data-w>
+        <p className="overlay-title" data-w>
           WELCOME TO
           <br />
           LOUIS MADRIGAL&apos;S
           <br />
           PORTFOLIO<span className="cursor">▮</span>
-        </h1>
+        </p>
         <button ref={btnRef} className="btn-neon" data-w autoFocus onClick={handleEnter}>
           [ ENTER ]
         </button>

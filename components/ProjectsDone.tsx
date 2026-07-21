@@ -12,7 +12,7 @@ export default function ProjectsDone() {
         <header className="sec-head" data-reveal>
           <div>
             <p className="sec-idx caption">[02] — SIDE PROJECTS &amp; TOOLS</p>
-            <h2 className="sec-title">PROJECTS DONE_</h2>
+            <h2 className="sec-title">PROJECTS_</h2>
           </div>
           <p className="sec-note caption">{projectsDone.length} SHIPPED · LIVE + SOURCE</p>
         </header>

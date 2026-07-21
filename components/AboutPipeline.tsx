@@ -51,7 +51,7 @@ export default function AboutPipeline() {
       <div className="container-wide">
         <header className="sec-head" data-reveal>
           <div>
-            <p className="sec-idx caption">[02] — ABOUT &amp; PIPELINE</p>
+            <p className="sec-idx caption">[03] — ABOUT &amp; PIPELINE</p>
             <h2 className="sec-title">HOW THE WORK GETS DONE_</h2>
           </div>
           <p className="sec-note caption">PROFILE · PROCESS · {profile.timezone}</p>

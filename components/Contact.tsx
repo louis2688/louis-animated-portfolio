@@ -30,7 +30,7 @@ export default function Contact() {
       <div className="container-wide">
         <header className="sec-head" data-reveal>
           <div>
-            <p className="sec-idx caption">[03] — CONTACT</p>
+            <p className="sec-idx caption">[04] — CONTACT</p>
             <h2 className="sec-title">LET&apos;S BUILD SOMETHING_</h2>
           </div>
           <p className="sec-note caption">USUALLY REPLIES &lt; 24H</p>

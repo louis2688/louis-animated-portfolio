@@ -33,6 +33,7 @@ export const heroStats = [
 
 export const navLinks = [
   { label: "WORK", href: "#work" },
+  { label: "PROJECTS", href: "#projects" },
   { label: "ABOUT", href: "#about" },
   { label: "PIPELINE", href: "#pipeline" },
   { label: "CONTACT", href: "#contact" },
@@ -158,4 +159,27 @@ export const pipeline = [
     desc: "99.9% uptime, production incident response and the tuning behind 30–50% backend gains.",
     tools: "CLOUDWATCH · GRAFANA",
   },
+];
+
+export type ProjectDone = {
+  name: string;
+  desc?: string;
+  live?: string;
+  github: string;
+};
+
+// "Projects Done" — side projects & tools. Screenshots not supplied, so cards are text-only.
+// Drop a screenshot path onto any entry later and wire it into ProjectsDone.tsx.
+export const projectsDone: ProjectDone[] = [
+  { name: "GrowthOS", live: "https://www.launchlift.app", github: "https://github.com/louis2688/growthos" },
+  { name: "Business Operation Management System", live: "https://boms-delta.vercel.app/", github: "https://github.com/louis2688/boms" },
+  { name: "Brain Injury Management System", live: "https://bims-sigma.vercel.app", github: "https://github.com/louis2688/bims" },
+  { name: "ChatLayer", desc: "Secure n8n chat, multi-tenant.", live: "https://chatlayer.vercel.app", github: "https://github.com/louis2688/chatlayer" },
+  { name: "PresyoGasPH", desc: "Track fuel prices across Metro Manila.", live: "https://presyogasph.vercel.app", github: "https://github.com/louis2688/PresyoGasPH" },
+  { name: "Tempest CRM", desc: "AI-powered CRM.", live: "https://ai-powered-crm-lemon.vercel.app", github: "https://github.com/louis2688/ai-powered-crm" },
+  { name: "PinoyAppBuilder", desc: "A collection of apps built by Pinoy devs.", live: "https://pinoyappbuilder.vercel.app", github: "https://github.com/louis2688/pinoyappbuilder" },
+  { name: "LargaNa", desc: "Ride-hailing app.", live: "https://largana.vercel.app", github: "https://github.com/louis2688/LargaNa" },
+  { name: "AI Engineering OS", desc: "AI-powered engineering OS.", live: "https://aeios-five.vercel.app", github: "https://github.com/louis2688/AIEOS" },
+  { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
+  { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" },
 ];

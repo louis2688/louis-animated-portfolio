@@ -171,6 +171,6 @@ export const projectsDone: ProjectDone[] = [
   { name: "PinoyAppBuilder", desc: "A collection of apps built by Pinoy devs.", live: "https://pinoyappbuilder.vercel.app", github: "https://github.com/louis2688/pinoyappbuilder" },
   { name: "LargaNa", desc: "Ride-hailing app.", live: "https://largana.vercel.app", github: "https://github.com/louis2688/LargaNa" },
   { name: "AI Engineering OS", desc: "AI-powered engineering OS.", live: "https://aeios-five.vercel.app", github: "https://github.com/louis2688/AIEOS" },
-  { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
+  { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", live: "https://jarvis-ai-louis.vercel.app", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
   { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" },
 ];

@@ -56,12 +56,9 @@ export type Project = {
   period: string;
   tag: string;
   desc: string;
-  video: string;
   span?: "lg" | "wide";
 };
 
-// Local on-brand reels in /public/work so hover-to-play works offline.
-// Swap these for real project reels (same paths) when you have them.
 export const projects: Project[] = [
   {
     title: "DIGITAL WALLET AT NATIONAL SCALE",
@@ -70,7 +67,6 @@ export const projects: Project[] = [
     period: "2025—2026",
     tag: "FINTECH / AI",
     desc: "LLM copilots, RAG pipelines and high-throughput payment APIs for one of the Philippines' largest mobile wallets. SSR cut first paint by 40%.",
-    video: "/work/work1.mp4",
     span: "lg",
   },
   {
@@ -80,7 +76,6 @@ export const projects: Project[] = [
     period: "2024—2025",
     tag: "AI AGENTS",
     desc: "Autonomous multi-agent systems plus 15+ production APIs for a Fortune 500 telco.",
-    video: "/work/work2.mp4",
   },
   {
     title: "SERVERLESS CRM & IDENTITY",
@@ -89,7 +84,6 @@ export const projects: Project[] = [
     period: "2021—2023",
     tag: "CLOUD / OKTA",
     desc: "AWS Lambda architecture and Okta SSO for 10,000+ enterprise users; ops cost down 25%.",
-    video: "/work/work3.mp4",
   },
   {
     title: "CUSTOM CRM PLATFORM",
@@ -98,7 +92,6 @@ export const projects: Project[] = [
     period: "2021—2022",
     tag: "LEAD / GDPR",
     desc: "2x load-speed gains, GDPR-compliant identity and sub-second queries over 50k+ records.",
-    video: "/work/work4.mp4",
     span: "wide",
   },
   {
@@ -108,7 +101,6 @@ export const projects: Project[] = [
     period: "2019—2020",
     tag: "MOBILE / PIXIJS",
     desc: "React Native apps from one codebase, PixiJS visualizations driven by RxJS event streams.",
-    video: "/work/work5.mp4",
     span: "wide",
   },
   {
@@ -118,7 +110,6 @@ export const projects: Project[] = [
     period: "ONGOING",
     tag: "COMMUNITY",
     desc: "Development insights, tutorials and industry trends for Filipino engineers.",
-    video: "/work/work6.mp4",
     span: "wide",
   },
 ];

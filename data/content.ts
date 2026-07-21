@@ -45,6 +45,7 @@ export const socials = [
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/louismadrigal/" },
   { label: "THETECHNGANI", href: "#" },
   { label: "PHONE", href: "tel:+639491861717" },
+  { label: "RESUME", href: "https://docs.google.com/document/d/1Yhvrn8TQPvSiar0MjhmrGyVA1yjQlXvhQ4r4ESppTJA/edit?usp=sharing" },
 ];
 
 export type Project = {

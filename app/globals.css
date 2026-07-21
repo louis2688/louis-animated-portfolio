@@ -820,7 +820,7 @@ section[id], div[id] {
 }
 .footer-links {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-bottom: 1px solid var(--hairline);
   margin-bottom: 24px;
 }

@@ -294,10 +294,13 @@ section[id], div[id] {
   height: 60px;
 }
 .nav-brand {
-  font-weight: 800;
-  font-size: 1.125rem;
-  letter-spacing: 0.08em;
-  color: var(--ink);
+  display: inline-flex;
+  align-items: center;
+}
+.nav-logo {
+  height: 34px;
+  width: auto;
+  display: block;
 }
 .nav-links {
   display: flex;

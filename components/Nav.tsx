@@ -31,8 +31,9 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="container-wide nav-row">
-        <a href="#top" className="nav-brand" aria-label="Back to top">
-          LM<span className="cursor">▮</span>
+        <a href="#top" className="nav-brand" aria-label="Louis Madrigal — back to top">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.svg" alt="Louis Madrigal" className="nav-logo" width={32} height={36} />
         </a>
         <nav className="nav-links" aria-label="Sections">
           {navLinks.map((l) => (

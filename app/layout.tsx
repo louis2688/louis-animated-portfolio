@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Louis Madrigal — Senior AI Full Stack Developer",
   description:
     "Portfolio of Louis Madrigal — 9+ years shipping fintech, enterprise platforms and AI systems that serve millions of users. Metro Manila, Philippines.",
+  icons: { icon: [{ url: "/logo.svg", type: "image/svg+xml" }] },
 };
 
 // Runs before paint so a saved light theme never flashes dark.

@@ -76,11 +76,20 @@ export default function AboutPipeline() {
             </ul>
 
             <div className="socials">
-              {socials.map((s) => (
-                <a key={s.label} className="social-row" href={s.href}>
-                  <span className="accent">[→]</span> {s.label}
-                </a>
-              ))}
+              {socials.map((s) => {
+                const ext = s.href.startsWith("http");
+                return (
+                  <a
+                    key={s.label}
+                    className="social-row"
+                    href={s.href}
+                    target={ext ? "_blank" : undefined}
+                    rel={ext ? "noreferrer" : undefined}
+                  >
+                    <span className="accent">[→]</span> {s.label}
+                  </a>
+                );
+              })}
             </div>
           </div>
 

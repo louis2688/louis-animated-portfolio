@@ -5,11 +5,19 @@ export default function Footer() {
     <footer className="footer">
       <div className="container-wide">
         <nav className="footer-links" aria-label="Social links">
-          {socials.map((s) => (
-            <a key={s.label} href={s.href}>
-              {s.label}
-            </a>
-          ))}
+          {socials.map((s) => {
+            const ext = s.href.startsWith("http");
+            return (
+              <a
+                key={s.label}
+                href={s.href}
+                target={ext ? "_blank" : undefined}
+                rel={ext ? "noreferrer" : undefined}
+              >
+                {s.label}
+              </a>
+            );
+          })}
         </nav>
         <div className="footer-base caption">
           <span>

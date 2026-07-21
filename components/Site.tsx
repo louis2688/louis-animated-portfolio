@@ -36,6 +36,8 @@ export default function Site() {
           autoAlpha: 0,
           duration: 0.9,
           ease: "power3.out",
+          // Drop GSAP's leftover inline transform so the CSS :hover lift works.
+          clearProps: "transform",
           scrollTrigger: { trigger: el, start: "top 86%" },
         });
       });

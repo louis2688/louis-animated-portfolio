@@ -14,7 +14,7 @@
   --ink: #f5f7fa;
   --body: #b7bfcc;
   --mute: #7b8394;
-  --ash: #525a68;
+  --ash: #727b8f;
   --hairline: rgba(226, 236, 255, 0.1);
   --hairline-strong: rgba(226, 236, 255, 0.24);
   --accent: #007aff;
@@ -40,7 +40,7 @@
   --ink: #201d1d;
   --body: #424245;
   --mute: #646262;
-  --ash: #9a9898;
+  --ash: #757170;
   --hairline: rgba(15, 0, 0, 0.12);
   --hairline-strong: #646262;
   --accent: #007aff;
@@ -1059,4 +1059,71 @@ section[id], div[id] {
   *::after {
     transition-duration: 0.01ms !important;
   }
+}
+/* ---------- project detail page ---------- */
+
+.project-page {
+  padding: 72px 24px 96px;
+  min-height: 100vh;
+}
+.back-link {
+  display: inline-block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--mute);
+  margin-bottom: 48px;
+  transition: color 0.2s, transform 0.2s;
+}
+.back-link:hover {
+  color: var(--accent-bright);
+  transform: translateX(-4px);
+}
+.project-page-title {
+  font-size: clamp(2rem, 6vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.05;
+  margin: 12px 0 20px;
+}
+.project-page-lede {
+  font-size: 1.125rem;
+  color: var(--body);
+  max-width: 60ch;
+  margin-bottom: 36px;
+}
+.project-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 52px;
+}
+.project-page-meta {
+  border-top: 1px solid var(--hairline);
+  max-width: 560px;
+}
+.project-page-meta li {
+  display: flex;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--hairline);
+  font-size: 0.9375rem;
+}
+.project-page-meta .caption {
+  width: 84px;
+  flex: none;
+}
+.project-page-meta a {
+  color: var(--ink);
+  transition: color 0.2s;
+}
+.project-page-meta a:hover {
+  color: var(--accent-bright);
+}
+.project-name-link {
+  color: inherit;
+  transition: color 0.2s;
+}
+.project-name-link:hover {
+  color: var(--accent-bright);
 }

@@ -1,4 +1,5 @@
-import { projectsDone } from "@/data/content";
+import Link from "next/link";
+import { projectsDone, projectSlug } from "@/data/content";
 
 // Strip protocol + trailing slash for a compact display label.
 function cleanUrl(u: string) {
@@ -29,7 +30,7 @@ export default function ProjectsDone() {
                 )}
               </div>
 
-              <h3>{p.name}</h3>
+              <h3><Link href={`/projects/${projectSlug(p.name)}`} className="project-name-link">{p.name}</Link></h3>
               {p.desc ? (
                 <p className="project-desc">{p.desc}</p>
               ) : (

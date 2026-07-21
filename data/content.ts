@@ -174,3 +174,11 @@ export const projectsDone: ProjectDone[] = [
   { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", live: "https://jarvis-ai-louis.vercel.app", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
   { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" },
 ];
+
+// Stable URL slug for a project's detail page (/projects/<slug>).
+export function projectSlug(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}

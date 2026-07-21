@@ -499,6 +499,8 @@ section[id], div[id] {
 }
 .work-stage {
   position: relative;
+  /* fallback depth when the WebGL wave is gated off (mobile / low-end) */
+  background: radial-gradient(90% 70% at 50% 82%, rgba(0, 122, 255, 0.05), transparent 72%);
 }
 .work-canvas {
   position: absolute;

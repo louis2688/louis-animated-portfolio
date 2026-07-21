@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 import { heroStats, profile } from "@/data/content";
+import { useHeavyFx } from "@/lib/useHeavyFx";
 const HeroParticles = dynamic(() => import("@/components/HeroParticles"), {
   ssr: false,
 });
@@ -14,6 +15,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero({ entered }: { entered: boolean }) {
   const root = useRef<HTMLElement>(null);
+  const heavyFx = useHeavyFx();
 
   useGSAP(
     () => {
@@ -50,7 +52,7 @@ export default function Hero({ entered }: { entered: boolean }) {
   return (
     <section id="top" ref={root} className="hero">
       <div className="hero-media" id="reel-slot" aria-hidden="true">
-        <HeroParticles />
+        {heavyFx && <HeroParticles />}
       </div>
 
       <div className="container-wide hero-inner">

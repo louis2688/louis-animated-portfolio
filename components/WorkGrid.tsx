@@ -1,6 +1,7 @@
 "use client";
 
 import { projects, type Project } from "@/data/content";
+import { useHeavyFx } from "@/lib/useHeavyFx";
 import dynamic from "next/dynamic";
 
 const ParticleWave = dynamic(() => import("@/components/ParticleWave"), {
@@ -31,6 +32,8 @@ function WorkCard({ p, i }: { p: Project; i: number }) {
 }
 
 export default function WorkGrid() {
+  const heavyFx = useHeavyFx();
+
   return (
     <section id="work" className="section">
       <div className="container-wide">
@@ -39,11 +42,11 @@ export default function WorkGrid() {
             <p className="sec-idx caption">[01] — SELECTED WORK</p>
             <h2 className="sec-title">SHIPPED &amp; IN PRODUCTION_</h2>
           </div>
-          <p className="sec-note caption">INTERACTIVE 3D FIELD · MOVE YOUR CURSOR</p>
+          <p className="sec-note caption">{heavyFx ? "INTERACTIVE 3D FIELD · MOVE YOUR CURSOR" : "CLIENT WORK · 2017—2026"}</p>
         </header>
         <div className="work-stage">
-          {/* Interactive Three.js particle wave behind the cards */}
-          <ParticleWave />
+          {/* Interactive Three.js particle wave — capable devices only */}
+          {heavyFx && <ParticleWave />}
           <div className="bento">
             {projects.map((p, i) => (
               <WorkCard key={p.title} p={p} i={i} />

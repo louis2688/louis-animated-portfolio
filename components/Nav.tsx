@@ -53,13 +53,8 @@ export default function Nav() {
           aria-label="Sections"
         >
           {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              data-label={l.label}
-              onClick={() => setMenuOpen(false)}
-            >
-              <span>{l.label}</span>
+            <a key={l.href} href={l.href} onClick={() => setMenuOpen(false)}>
+              {l.label}
             </a>
           ))}
         </nav>

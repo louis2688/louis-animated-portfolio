@@ -581,7 +581,7 @@ section[id], div[id] {
 .card-wide .card-desc {
   display: block;
 }
-.card:hover /* ---------- projects done ---------- */
+/* ---------- projects done ---------- */
 
 .projects-grid {
   display: grid;

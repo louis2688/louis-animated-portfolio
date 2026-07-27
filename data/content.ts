@@ -166,6 +166,7 @@ export const projectsDone: ProjectDone[] = [
   { name: "Business Operation Management System", live: "https://boms-delta.vercel.app/", github: "https://github.com/louis2688/boms" },
   { name: "Brain Injury Management System", live: "https://bims-sigma.vercel.app", github: "https://github.com/louis2688/bims" },
   { name: "ChatLayer", desc: "Secure n8n chat, multi-tenant.", live: "https://chatlayer.vercel.app", github: "https://github.com/louis2688/chatlayer" },
+  { name: "Chatnode", desc: "Your n8n chat, secured and multi-tenant.", live: "https://www.chatnode.app", github: "https://github.com/louis2688/chatnode" },
   { name: "PresyoGasPH", desc: "Track fuel prices across Metro Manila.", live: "https://presyogasph.vercel.app", github: "https://github.com/louis2688/PresyoGasPH" },
   { name: "Tempest CRM", desc: "AI-powered CRM.", live: "https://ai-powered-crm-lemon.vercel.app", github: "https://github.com/louis2688/ai-powered-crm" },
   { name: "PinoyAppBuilder", desc: "A collection of apps built by Pinoy devs.", live: "https://pinoyappbuilder.vercel.app", github: "https://github.com/louis2688/pinoyappbuilder" },

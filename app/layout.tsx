@@ -46,7 +46,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Louis Madrigal", url: "https://github.com/louis2688" }],
   creator: "Louis Madrigal",
   publisher: "Louis Madrigal",
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": "/blog/rss.xml" },
+  },
   icons: { icon: [{ url: "/logo.svg", type: "image/svg+xml" }] },
   openGraph: {
     type: "website",

@@ -1216,3 +1216,138 @@ section[id], div[id] {
     opacity: 1;
   }
 }
+
+/* ---------- blog index ---------- */
+
+.blog-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 48px;
+}
+.blog-card {
+  padding: 24px 28px;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.blog-card:hover,
+.blog-card:focus-within {
+  border-color: rgba(0, 122, 255, 0.5);
+  box-shadow: 0 0 24px var(--glow);
+  transform: translateY(-3px);
+}
+.blog-card-date {
+  margin-bottom: 8px;
+}
+.blog-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.35;
+  margin-bottom: 8px;
+}
+.blog-card-title a {
+  transition: color 0.2s;
+}
+.blog-card-title a:hover {
+  color: var(--accent-bright);
+}
+.blog-card-desc {
+  color: var(--body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  max-width: 68ch;
+}
+.blog-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 14px;
+}
+.blog-tag {
+  color: var(--mute);
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+}
+
+/* ---------- blog post ---------- */
+
+.post-body {
+  margin-top: 44px;
+  max-width: 70ch;
+}
+.post-body p {
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+.post-body h2 {
+  font-size: 1.375rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 44px 0 16px;
+}
+.post-body h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  margin: 32px 0 12px;
+}
+.post-body ul,
+.post-body ol {
+  margin: 0 0 18px;
+  padding-left: 22px;
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+.post-body li::marker {
+  color: var(--accent-bright);
+}
+.post-body a {
+  color: var(--accent-bright);
+  border-bottom: 1px solid var(--hairline-strong);
+  transition: border-color 0.2s;
+}
+.post-body a:hover {
+  border-color: var(--accent-bright);
+}
+.post-body code {
+  background: var(--glass-bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  color: var(--ink);
+  font-size: 0.875em;
+  padding: 1px 6px;
+}
+.post-body pre {
+  background: var(--glass-bg);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  margin: 0 0 22px;
+  padding: 18px 20px;
+  overflow-x: auto;
+}
+.post-body pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  display: block;
+  color: var(--body);
+  font-size: 0.875rem;
+  line-height: 1.65;
+}
+.post-cta {
+  margin-top: 56px;
+  padding: 32px;
+  max-width: 70ch;
+}
+.post-cta p {
+  color: var(--body);
+  margin-bottom: 20px;
+}

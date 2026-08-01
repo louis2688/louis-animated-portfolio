@@ -3,27 +3,71 @@
 import { useState } from "react";
 import { profile } from "@/data/content";
 
-export default function Contact() {
-  const [sent, setSent] = useState(false);
+type Status = "idle" | "sending" | "sent" | "error";
 
-  // ponytail: no backend — compose a mail in the visitor's own client.
-  // Swap for a POST to /api/contact (or a form service) when one exists.
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function Contact() {
+  const [status, setStatus] = useState<Status>("idle");
+  const [note, setNote] = useState<string | null>(null);
+
+  // ponytail: POSTs to /api/contact (Resend, activated by env var RESEND_API_KEY).
+  // If the API is unconfigured or unreachable, we fall back to the old mailto compose.
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const f = new FormData(e.currentTarget);
-    const subject = `Project inquiry — ${f.get("name")}`;
-    const body = [
-      `Name: ${f.get("name")}`,
-      `Email: ${f.get("email")}`,
-      `Company: ${f.get("company") || "—"}`,
-      "",
-      `${f.get("message")}`,
-    ].join("\n");
-    window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
-    setSent(true);
+    const form = e.currentTarget;
+    const f = new FormData(form);
+    const fields = {
+      name: String(f.get("name") ?? ""),
+      email: String(f.get("email") ?? ""),
+      company: String(f.get("company") ?? ""),
+      message: String(f.get("message") ?? ""),
+      contact_time: String(f.get("contact_time") ?? ""),
+    };
+    const mailtoFallback = () => {
+      const subject = `Project inquiry — ${fields.name}`;
+      const body = [
+        `Name: ${fields.name}`,
+        `Email: ${fields.email}`,
+        `Company: ${fields.company || "—"}`,
+        "",
+        fields.message,
+      ].join("\n");
+      window.location.href = `mailto:${profile.email}?subject=${encodeURIComponent(
+        subject
+      )}&body=${encodeURIComponent(body)}`;
+      setNote("// api unreachable — opened your mail app as a fallback");
+      setStatus("error");
+    };
+    setStatus("sending");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(fields),
+      });
+      if (res.ok) {
+        form.reset();
+        setNote(null);
+        setStatus("sent");
+      } else if (res.status === 400) {
+        // The API rejected the input — show why instead of pretending it's down.
+        const { error } = await res.json().catch(() => ({ error: "invalid input" }));
+        setNote(`// ${error} — fix and resend`);
+        setStatus("idle");
+      } else {
+        // ponytail: infra failures (503 unconfigured, 429, 500, 502…) → mailto, never lose a lead.
+        mailtoFallback();
+      }
+    } catch {
+      mailtoFallback();
+    }
   };
+
+  const btnLabel =
+    status === "sending"
+      ? "[ SENDING… ]"
+      : status === "sent"
+        ? "[ MESSAGE SENT ✓ ]"
+        : "[ SEND MESSAGE → ]";
 
   return (
     <section id="contact" className="section">
@@ -80,12 +124,31 @@ export default function Contact() {
             </label>
             <label className="field">
               <span className="caption">{"// MESSAGE"}</span>
-              <textarea name="message" required rows={5} placeholder="What are we building?" />
+              <textarea
+                name="message"
+                required
+                minLength={10}
+                maxLength={5000}
+                rows={5}
+                placeholder="What are we building?"
+              />
             </label>
-            <button className="btn btn-primary" type="submit">
-              {sent ? "[ MAIL CLIENT OPENED ✓ ]" : "[ SEND MESSAGE → ]"}
+            {/* Honeypot: display:none keeps browser/password-manager autofill away
+                (off-screen fields still get filled), and the name avoids autofill
+                heuristics — a real visitor's autofill must never trip the trap. */}
+            <input
+              name="contact_time"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              style={{ display: "none" }}
+            />
+            <button className="btn btn-primary" type="submit" disabled={status === "sending"}>
+              {btnLabel}
             </button>
-            <p className="form-note caption">{"// opens your mail app — no data leaves this page"}</p>
+            <p className="form-note caption">
+              {note ?? "// delivered straight to my inbox — no tracking"}
+            </p>
           </form>
         </div>
       </div>

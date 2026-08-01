@@ -1,6 +1,8 @@
 // All portfolio copy lives here — edit this file, not the components.
 // Source: Louis_Madrigal_2026_v2.docx
 
+export const SITE_URL = "https://www.louismadrigal.com";
+
 export const profile = {
   name: "LOUIS ANTHONY M. MADRIGAL",
   shortName: "LOUIS MADRIGAL",

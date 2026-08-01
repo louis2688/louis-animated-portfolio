@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { projectsDone, projectSlug } from "@/data/content";
+import { projectsDone, projectSlug, SITE_URL } from "@/data/content";
 
-const SITE = "https://louismadrigal-portfolio.vercel.app";
+const SITE = SITE_URL;
 
 function cleanUrl(u: string) {
   return u.replace(/^https?:\/\//, "").replace(/\/+$/, "");
@@ -56,13 +56,31 @@ export default async function ProjectPage({
   const description = p.desc || `${p.name} — a project built by Louis Madrigal.`;
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: p.name,
-    description,
-    url: p.live || p.github,
-    applicationCategory: "WebApplication",
-    operatingSystem: "Web",
-    author: { "@type": "Person", name: "Louis Madrigal", url: SITE },
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: p.name,
+        description,
+        url: p.live || p.github,
+        applicationCategory: "WebApplication",
+        operatingSystem: "Web",
+        offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+        author: { "@type": "Person", name: "Louis Madrigal", url: SITE },
+      },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: SITE },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Projects",
+            item: `${SITE}/#projects`,
+          },
+          { "@type": "ListItem", position: 3, name: p.name },
+        ],
+      },
+    ],
   };
 
   return (

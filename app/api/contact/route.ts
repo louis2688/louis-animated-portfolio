@@ -48,7 +48,9 @@ export async function POST(req: Request) {
       method: "POST",
       headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: "Portfolio Contact <onboarding@resend.dev>",
+        // launchlift.app is the one verified domain on the free Resend tier;
+        // any address at it may send, so the portfolio borrows it.
+        from: "Louis Madrigal Portfolio <portfolio@launchlift.app>",
         to: ["louismadrigal26@gmail.com"],
         reply_to: email,
         subject: `Portfolio inquiry — ${name}`,

@@ -82,6 +82,41 @@ scale = min((W - 2 * PAD) / (maxx - minx), (H - 2 * PAD) / (maxy - miny))
 offx = (W - (maxx - minx) * scale) / 2
 offy = (H - (maxy - miny) * scale) / 2
 
+# --- 3D pass: same per-component layout, packed into a ball ---------------
+# The WebGL view rotates, so components are spread over a Fibonacci sphere
+# instead of a disc; without this they stack into one blob from every angle.
+GOLDEN = math.pi * (3 - math.sqrt(5))
+pos3 = {}
+shell = 0.0
+for ci, comp in enumerate(comps):
+    sub = G.subgraph(comp)
+    n = sub.number_of_nodes()
+    r = max(n ** (1 / 3) * 0.30, 0.10)
+
+    if n == 1:
+        local3 = {next(iter(comp)): (0.0, 0.0, 0.0)}
+    else:
+        local3 = nx.spring_layout(sub, dim=3, k=1.6 / math.sqrt(n), iterations=400, seed=7)
+        m = max(math.sqrt(p[0] ** 2 + p[1] ** 2 + p[2] ** 2) for p in local3.values()) or 1.0
+        local3 = {k: (p[0] / m, p[1] / m, p[2] / m) for k, p in local3.items()}
+
+    if ci == 0:
+        cx3 = cy3 = cz3 = 0.0
+    else:
+        # Golden-angle spiral over a sphere, radius growing with each component.
+        i = ci - 1
+        total = max(len(comps) - 1, 1)
+        y = 1 - (i / total) * 2
+        rad = math.sqrt(max(1 - y * y, 0))
+        th = GOLDEN * i
+        shell = 0.85 + 0.55 * (i / total)
+        cx3, cy3, cz3 = math.cos(th) * rad * shell, y * shell, math.sin(th) * rad * shell
+
+    for k, (x, y3, z) in local3.items():
+        pos3[k] = (cx3 + x * r, cy3 + y3 * r, cz3 + z * r)
+
+m3 = max(math.sqrt(p[0] ** 2 + p[1] ** 2 + p[2] ** 2) for p in pos3.values()) or 1.0
+
 ids = list(G.nodes())
 idx = {n: i for i, n in enumerate(ids)}
 deg = dict(G.degree())
@@ -91,6 +126,8 @@ nodes = [
         "l": G.nodes[n]["label"],
         "x": round(offx + (pos[n][0] - minx) * scale, 1),
         "y": round(offy + (pos[n][1] - miny) * scale, 1),
+        # Unit-ball coordinates for the WebGL view.
+        "p": [round(pos3[n][0] / m3, 3), round(pos3[n][1] / m3, 3), round(pos3[n][2] / m3, 3)],
         "c": G.nodes[n]["community"],
         "d": deg[n],
     }

@@ -1354,32 +1354,76 @@ section[id], div[id] {
 
 /* ---- Codebase graph (section 03) ---- */
 .graph-figure {
+  position: relative;
   border: 1px solid var(--hairline);
   border-radius: var(--radius);
   padding: 12px 12px 0;
   overflow: hidden;
 }
-.graph-svg {
-  display: block;
+/* WebGL view gets a taller stage and a faint vignette to sell the depth. */
+.graph-figure.is-3d {
+  padding: 0;
+  background:
+    radial-gradient(70% 70% at 50% 45%, rgba(0, 122, 255, 0.07), transparent 70%),
+    var(--glass-bg);
+}
+.graph-canvas {
+  position: relative;
   width: 100%;
-  height: auto;
+  height: clamp(340px, 52vh, 620px);
 }
-/* Edges read as faint filaments; nodes carry the color. */
-.graph-edges line {
-  stroke-width: 1.1;
-  opacity: 0.42;
-}
+.graph-canvas canvas { display: block; }
+.graph-svg { display: block; width: 100%; height: auto; }
+.graph-edges line { stroke-width: 1.1; opacity: 0.42; }
 .graph-nodes circle {
   opacity: 0.9;
   transition: r 0.15s ease, opacity 0.15s ease;
   cursor: crosshair;
 }
-.graph-nodes circle:hover {
-  opacity: 1;
-  r: 10;
+.graph-nodes circle:hover { opacity: 1; r: 10; }
+
+/* Stats card, top-left inside the stage. */
+.graph-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 8px 12px;
+  border: 1px solid var(--hairline);
+  border-radius: 6px;
+  background: rgba(5, 6, 9, 0.55);
+  backdrop-filter: blur(6px);
+  pointer-events: none;
 }
+.graph-badge strong { letter-spacing: 0.1em; color: var(--ink); }
+.graph-badge span { color: var(--ash); }
+
+/* Hover read-out, positioned at the cursor by GraphCanvas. */
+.graph-tip {
+  position: absolute;
+  z-index: 3;
+  transform: translate(14px, -50%);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 320px;
+  padding: 7px 10px;
+  border: 1px solid rgba(0, 122, 255, 0.45);
+  border-radius: 6px;
+  background: rgba(5, 6, 9, 0.9);
+  pointer-events: none;
+  white-space: nowrap;
+}
+.graph-tip strong { color: var(--ink); }
+.graph-tip span { color: var(--ash); }
+
 .graph-cap {
-  padding: 10px 4px 12px;
+  position: relative;
+  z-index: 2;
+  padding: 10px 14px 12px;
   color: var(--ash);
 }
 .graph-note {
@@ -1388,13 +1432,10 @@ section[id], div[id] {
   font-size: 0.9375rem;
   line-height: 1.6;
 }
-.graph-note a {
-  color: var(--accent);
-}
-.graph-note a:hover {
-  text-decoration: underline;
-}
+.graph-note a { color: var(--accent); }
+.graph-note a:hover { text-decoration: underline; }
 @media (max-width: 720px) {
   .graph-figure { padding: 8px 8px 0; }
   .graph-edges line { stroke-width: 1.4; opacity: 0.5; }
+  .graph-badge { top: 10px; left: 10px; padding: 6px 9px; }
 }

@@ -177,7 +177,7 @@ export const projectsDone: ProjectDone[] = [
   { name: "AI Engineering OS", desc: "AI-powered engineering OS.", live: "https://aeios-five.vercel.app", github: "https://github.com/louis2688/AIEOS" },
   { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", live: "https://jarvis-ai-louis.vercel.app", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
   { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" },
-  { name: "Renoscan", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" },
+  { name: "Renoscan", desc: "AI photo scan to repair shopping list with local store prices.", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" },
 ];
 
 // Stable URL slug for a project's detail page (/projects/<slug>).

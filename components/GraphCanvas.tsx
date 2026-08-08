@@ -27,7 +27,7 @@ export default function GraphCanvas() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, w() / h(), 0.1, 100);
-    camera.position.z = 3.05;
+    camera.position.z = 3.35;
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -42,6 +42,7 @@ export default function GraphCanvas() {
     const positions = new Float32Array(N * 3);
     const colors = new Float32Array(N * 3);
     const sizes = new Float32Array(N);
+    const phases = new Float32Array(N);
     const c = new THREE.Color();
 
     graph.nodes.forEach((n, i) => {
@@ -52,35 +53,50 @@ export default function GraphCanvas() {
       colors[i * 3] = c.r;
       colors[i * 3 + 1] = c.g;
       colors[i * 3 + 2] = c.b;
-      sizes[i] = Math.min(9 + n.d * 1.5, 26);
+      sizes[i] = Math.min(15 + n.d * 3.0, 58);
+      // Deterministic per-node offset so the twinkle never marches in step.
+      phases[i] = (i * 12.9898) % (Math.PI * 2);
     });
 
     const nodeGeo = new THREE.BufferGeometry();
     nodeGeo.setAttribute("position", new THREE.BufferAttribute(positions, 3));
     nodeGeo.setAttribute("color", new THREE.BufferAttribute(colors, 3));
     nodeGeo.setAttribute("size", new THREE.BufferAttribute(sizes, 1));
+    nodeGeo.setAttribute("phase", new THREE.BufferAttribute(phases, 1));
 
-    // Soft radial falloff + additive blending gives the bloom without a
-    // post-processing pass.
+    // Tight core + wide falloff halo under additive blending gives the bloom
+    // without a post-processing pass. Depth fade sells the far side of the shell.
     const nodeMat = new THREE.ShaderMaterial({
+      uniforms: { uTime: { value: 0 } },
       vertexShader: `
         attribute float size;
+        attribute float phase;
+        uniform float uTime;
         varying vec3 vColor;
+        varying float vDepth;
+        varying float vTwinkle;
         void main() {
           vColor = color;
+          vTwinkle = 0.72 + 0.28 * sin(uTime * 1.6 + phase);
           vec4 mv = modelViewMatrix * vec4(position, 1.0);
-          gl_PointSize = size * (1.0 / -mv.z) * 2.2;
+          // 0 at the near face of the shell, 1 at the far face.
+          vDepth = clamp((-mv.z - 2.1) / 2.6, 0.0, 1.0);
+          gl_PointSize = size * (1.0 / -mv.z) * 2.4 * (0.75 + 0.25 * vTwinkle);
           gl_Position = projectionMatrix * mv;
         }
       `,
       fragmentShader: `
         varying vec3 vColor;
+        varying float vDepth;
+        varying float vTwinkle;
         void main() {
           float d = distance(gl_PointCoord, vec2(0.5));
           if (d > 0.5) discard;
-          float core = smoothstep(0.5, 0.06, d);
+          float core = pow(smoothstep(0.5, 0.0, d), 3.0);
           float halo = smoothstep(0.5, 0.0, d) * 0.55;
-          gl_FragColor = vec4(vColor * (0.55 + core), core + halo);
+          float far = mix(1.0, 0.4, vDepth);
+          vec3 col = mix(vColor, vec3(1.0), core * 0.65);
+          gl_FragColor = vec4(col, (core + halo) * far * vTwinkle);
         }
       `,
       transparent: true,
@@ -114,7 +130,7 @@ export default function GraphCanvas() {
     const linkMat = new THREE.LineBasicMaterial({
       vertexColors: true,
       transparent: true,
-      opacity: 0.3,
+      opacity: 0.16, // filaments, not scaffolding — the nodes carry the image
       depthWrite: false,
       blending: THREE.AdditiveBlending,
     });
@@ -147,7 +163,8 @@ export default function GraphCanvas() {
 
     const step = (time: number) => {
       if (!running) return;
-      group.rotation.y += 0.0022;
+      nodeMat.uniforms.uTime.value = time * 0.001;
+      group.rotation.y += 0.0016;
       group.rotation.x += (tilt * 0.16 - group.rotation.x) * 0.03;
 
       // Throttle picking; raycasting every frame is wasted work.
@@ -184,6 +201,7 @@ export default function GraphCanvas() {
     io.observe(mount);
     if (reduce) {
       group.rotation.y = 0.5;
+      nodeMat.uniforms.uTime.value = 0;
       renderer.render(scene, camera);
     }
 

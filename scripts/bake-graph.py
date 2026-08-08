@@ -86,12 +86,14 @@ offy = (H - (maxy - miny) * scale) / 2
 # The WebGL view rotates, so components are spread over a Fibonacci sphere
 # instead of a disc; without this they stack into one blob from every angle.
 GOLDEN = math.pi * (3 - math.sqrt(5))
+RADIAL_SQUASH = 0.30  # flattens each cluster against the shell
 pos3 = {}
-shell = 0.0
+total = len(comps)
 for ci, comp in enumerate(comps):
     sub = G.subgraph(comp)
     n = sub.number_of_nodes()
-    r = max(n ** (1 / 3) * 0.30, 0.10)
+    # Patch size grows with the component but stays a patch, not a ball.
+    r = min(max(math.sqrt(n) * 0.16, 0.09), 0.62)
 
     if n == 1:
         local3 = {next(iter(comp)): (0.0, 0.0, 0.0)}
@@ -100,20 +102,34 @@ for ci, comp in enumerate(comps):
         m = max(math.sqrt(p[0] ** 2 + p[1] ** 2 + p[2] ** 2) for p in local3.values()) or 1.0
         local3 = {k: (p[0] / m, p[1] / m, p[2] / m) for k, p in local3.items()}
 
-    if ci == 0:
-        cx3 = cy3 = cz3 = 0.0
-    else:
-        # Golden-angle spiral over a sphere, radius growing with each component.
-        i = ci - 1
-        total = max(len(comps) - 1, 1)
-        y = 1 - (i / total) * 2
-        rad = math.sqrt(max(1 - y * y, 0))
-        th = GOLDEN * i
-        shell = 0.85 + 0.55 * (i / total)
-        cx3, cy3, cz3 = math.cos(th) * rad * shell, y * shell, math.sin(th) * rad * shell
+    # Every component sits ON the shell (golden-angle spiral over the sphere),
+    # so the cloud reads as a hollow globe instead of a solid clump.
+    y = 1 - (ci / max(total - 1, 1)) * 2 if total > 1 else 0.0
+    ring = math.sqrt(max(1 - y * y, 0))
+    th = GOLDEN * ci
+    nx3, ny3, nz3 = math.cos(th) * ring, y, math.sin(th) * ring
+    length = math.sqrt(nx3 * nx3 + ny3 * ny3 + nz3 * nz3) or 1.0
+    nx3, ny3, nz3 = nx3 / length, ny3 / length, nz3 / length
 
-    for k, (x, y3, z) in local3.items():
-        pos3[k] = (cx3 + x * r, cy3 + y3 * r, cz3 + z * r)
+    # Local frame tangent to the shell at that point.
+    up = (0.0, 1.0, 0.0) if abs(ny3) < 0.9 else (1.0, 0.0, 0.0)
+    tx = (up[1] * nz3 - up[2] * ny3, up[2] * nx3 - up[0] * nz3, up[0] * ny3 - up[1] * nx3)
+    tl = math.sqrt(sum(v * v for v in tx)) or 1.0
+    tx = tuple(v / tl for v in tx)
+    ty = (
+        ny3 * tx[2] - nz3 * tx[1],
+        nz3 * tx[0] - nx3 * tx[2],
+        nx3 * tx[1] - ny3 * tx[0],
+    )
+
+    for k, (a, b, cz) in local3.items():
+        # a,b spread across the surface; cz pushes slightly in/out of the shell.
+        depth = 1.0 + cz * r * RADIAL_SQUASH
+        pos3[k] = (
+            (nx3 * depth) + (tx[0] * a + ty[0] * b) * r,
+            (ny3 * depth) + (tx[1] * a + ty[1] * b) * r,
+            (nz3 * depth) + (tx[2] * a + ty[2] * b) * r,
+        )
 
 m3 = max(math.sqrt(p[0] ** 2 + p[1] ** 2 + p[2] ** 2) for p in pos3.values()) or 1.0
 

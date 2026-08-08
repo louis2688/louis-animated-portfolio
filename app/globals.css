@@ -1351,3 +1351,50 @@ section[id], div[id] {
   color: var(--body);
   margin-bottom: 20px;
 }
+
+/* ---- Codebase graph (section 03) ---- */
+.graph-figure {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: 12px 12px 0;
+  overflow: hidden;
+}
+.graph-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* Edges read as faint filaments; nodes carry the color. */
+.graph-edges line {
+  stroke-width: 1.1;
+  opacity: 0.42;
+}
+.graph-nodes circle {
+  opacity: 0.9;
+  transition: r 0.15s ease, opacity 0.15s ease;
+  cursor: crosshair;
+}
+.graph-nodes circle:hover {
+  opacity: 1;
+  r: 10;
+}
+.graph-cap {
+  padding: 10px 4px 12px;
+  color: var(--ash);
+}
+.graph-note {
+  margin-top: 16px;
+  color: var(--body);
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+.graph-note a {
+  color: var(--accent);
+}
+.graph-note a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 720px) {
+  .graph-figure { padding: 8px 8px 0; }
+  .graph-edges line { stroke-width: 1.4; opacity: 0.5; }
+}

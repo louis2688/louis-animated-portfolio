@@ -9,7 +9,7 @@ export default function Tools() {
       <div className="container-wide">
         <header className="sec-head" data-reveal>
           <div>
-            <p className="sec-idx caption">[03] — WORKBENCH</p>
+            <p className="sec-idx caption">[04] — WORKBENCH</p>
             <h2 className="sec-title">TOOLS I BUILD WITH_</h2>
           </div>
           <p className="sec-note caption">BUILT BY OTHERS · CREDITED</p>

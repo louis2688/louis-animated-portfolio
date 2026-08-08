@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import WorkGrid from "@/components/WorkGrid";
 import ProjectsDone from "@/components/ProjectsDone";
+import CodebaseGraph from "@/components/CodebaseGraph";
 import Tools from "@/components/Tools";
 import AboutPipeline from "@/components/AboutPipeline";
 import Contact from "@/components/Contact";
@@ -58,6 +59,7 @@ export default function Site() {
         <Hero entered={entered} />
         <WorkGrid />
         <ProjectsDone />
+        <CodebaseGraph />
         <Tools />
         <AboutPipeline />
         <Contact />

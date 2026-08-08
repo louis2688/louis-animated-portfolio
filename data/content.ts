@@ -165,7 +165,7 @@ export type ProjectDone = {
 // "Projects Done" — side projects & tools. Screenshots not supplied, so cards are text-only.
 // Drop a screenshot path onto any entry later and wire it into ProjectsDone.tsx.
 export const projectsDone: ProjectDone[] = [
-  { name: "GrowthOS", live: "https://www.launchlift.app", github: "https://github.com/louis2688/growthos" },
+  { name: "GrowthOS", desc: "AI agents turn a marketing goal into channels, plans and copy.", live: "https://www.launchlift.app", github: "https://github.com/louis2688/growthos" },
   { name: "Business Operation Management System", live: "https://boms-delta.vercel.app/", github: "https://github.com/louis2688/boms" },
   { name: "Brain Injury Management System", live: "https://bims-sigma.vercel.app", github: "https://github.com/louis2688/bims" },
   { name: "ChatLayer", desc: "Secure n8n chat, multi-tenant.", live: "https://chatlayer.vercel.app", github: "https://github.com/louis2688/chatlayer" },

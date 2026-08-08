@@ -605,6 +605,10 @@ section[id], div[id] {
   max-width: 46ch;
   display: none;
 }
+/* Only the roomy cards can hold a description: a single-width card is 220px
+   wide and 205px tall, and the client/role caption alone wraps to three lines
+   there. Projects with quantified outcomes get a wide slot in content.ts so the
+   numbers actually render. */
 .card-lg .card-desc,
 .card-wide .card-desc {
   display: block;

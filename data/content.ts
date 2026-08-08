@@ -79,6 +79,7 @@ export const projects: Project[] = [
     period: "2024—2025",
     tag: "AI AGENTS",
     desc: "Autonomous multi-agent systems plus 15+ production APIs for a Fortune 500 telco.",
+    span: "wide",
   },
   {
     title: "SERVERLESS CRM & IDENTITY",
@@ -87,6 +88,7 @@ export const projects: Project[] = [
     period: "2021—2023",
     tag: "CLOUD / OKTA",
     desc: "AWS Lambda architecture and Okta SSO for 10,000+ enterprise users; ops cost down 25%.",
+    span: "wide",
   },
   {
     title: "CUSTOM CRM PLATFORM",
@@ -104,7 +106,6 @@ export const projects: Project[] = [
     period: "2019—2020",
     tag: "MOBILE / PIXIJS",
     desc: "React Native apps from one codebase, PixiJS visualizations driven by RxJS event streams.",
-    span: "wide",
   },
   {
     title: "THETECHNGANI",
@@ -113,7 +114,6 @@ export const projects: Project[] = [
     period: "ONGOING",
     tag: "COMMUNITY",
     desc: "Development insights, tutorials and industry trends for Filipino engineers.",
-    span: "wide",
   },
 ];
 

@@ -180,6 +180,56 @@ export const projectsDone: ProjectDone[] = [
   { name: "Renoscan", desc: "AI photo scan to repair shopping list with local store prices.", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" },
 ];
 
+// Tools I work with day to day — other people's software, credited to them.
+// Kept separate from projectsDone on purpose: nothing here is mine.
+export type Tool = {
+  name: string;
+  by: string;
+  desc: string;
+  href: string;
+  post?: string; // internal write-up, when I have one
+};
+
+export const tools: Tool[] = [
+  {
+    name: "graphify",
+    by: "Graphify-Labs",
+    desc: "Turns a codebase into a queryable knowledge graph with deterministic AST parsing — no embeddings, no token cost.",
+    href: "https://github.com/Graphify-Labs/graphify",
+    post: "/blog/codebase-knowledge-graph-without-embeddings",
+  },
+  {
+    name: "Claude Code",
+    by: "Anthropic",
+    desc: "Agentic pair programming in the terminal. Most of the plumbing on this site was reviewed with it.",
+    href: "https://claude.com/claude-code",
+  },
+  {
+    name: "Next.js",
+    by: "Vercel",
+    desc: "App Router, server rendering and static generation. This site and most client work runs on it.",
+    href: "https://nextjs.org",
+  },
+  {
+    name: "GSAP",
+    by: "GreenSock",
+    desc: "The intro timeline and every scroll reveal on this page, loaded lazily so it never blocks first paint.",
+    href: "https://gsap.com",
+  },
+  {
+    name: "Three.js",
+    by: "mrdoob + contributors",
+    desc: "The WebGL particle fields behind the hero and work grid, gated to devices that can afford them.",
+    href: "https://threejs.org",
+  },
+  {
+    name: "Resend",
+    by: "Resend",
+    desc: "Delivers the contact form straight to my inbox, with a mailto fallback when the API is unreachable.",
+    href: "https://resend.com",
+  },
+];
+
 // Stable URL slug for a project's detail page (/projects/<slug>).
 export function projectSlug(name: string): string {
   return name

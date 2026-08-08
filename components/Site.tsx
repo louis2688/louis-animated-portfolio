@@ -6,6 +6,7 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import WorkGrid from "@/components/WorkGrid";
 import ProjectsDone from "@/components/ProjectsDone";
+import Tools from "@/components/Tools";
 import AboutPipeline from "@/components/AboutPipeline";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -57,6 +58,7 @@ export default function Site() {
         <Hero entered={entered} />
         <WorkGrid />
         <ProjectsDone />
+        <Tools />
         <AboutPipeline />
         <Contact />
       </main>

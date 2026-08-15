@@ -37,7 +37,7 @@ const services = [
     tag: "AI AGENTS",
     title: "AI AGENTS & WORKFLOW AUTOMATION",
     desc: "Autonomous multi-agent systems and n8n-based automation with real guardrails — the pattern behind Chatflowgate and the agent platforms I built for a Fortune 500 telco.",
-    link: { href: "/blog/multi-tenant-n8n-chat-gateway", label: "SEE THE ARCHITECTURE" },
+    link: { href: "/n8n-automation-consultant", label: "N8N & AUTOMATION CONSULTING" },
   },
   {
     tag: "FULL STACK",

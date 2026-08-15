@@ -85,8 +85,8 @@ export default function Hero({ entered }: { entered: boolean }) {
           <a className="btn btn-primary" href="#work">
             [ VIEW WORK ↓ ]
           </a>
-          <a className="btn btn-ghost" href="#contact">
-            [ CONTACT ]
+          <a className="btn btn-ghost" href="/services">
+            [ HIRE ME ]
           </a>
         </div>
 

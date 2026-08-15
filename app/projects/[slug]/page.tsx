@@ -131,6 +131,20 @@ export default async function ProjectPage({
           <Link href="/">Louis Madrigal — Senior AI Full Stack Developer</Link>
         </li>
       </ul>
+
+      {/* No dead ends: every project page offers a path to hiring. */}
+      <div className="glass post-cta">
+        <p>
+          I build products like this for clients — AI systems, full-stack
+          platforms and everything in between.
+        </p>
+        <Link className="btn btn-primary" href="/services">
+          [ HIRE ME → ]
+        </Link>
+        <Link className="btn btn-ghost" href="/#contact">
+          [ GET IN TOUCH ]
+        </Link>
+      </div>
     </main>
   );
 }

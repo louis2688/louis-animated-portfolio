@@ -1491,3 +1491,35 @@ section[id], div[id] {
 @media (max-width: 720px) {
   .services-grid { grid-template-columns: 1fr; }
 }
+
+/* ---- project screenshots ---- */
+.project-shot {
+  display: block;
+  margin: -20px -20px 14px;
+  border-bottom: 1px solid var(--hairline);
+  overflow: hidden;
+  aspect-ratio: 16 / 10;
+}
+.project-shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.project-card:hover .project-shot img {
+  transform: scale(1.04);
+}
+.project-page-shot {
+  display: block;
+  margin: 24px 0 8px;
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.project-page-shot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}

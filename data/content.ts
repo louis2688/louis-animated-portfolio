@@ -161,24 +161,24 @@ export type ProjectDone = {
   desc?: string;
   live?: string;
   github: string;
+  shot?: string; // homepage screenshot in public/shots, captured from the live site
 };
 
-// "Projects Done" — side projects & tools. Screenshots not supplied, so cards are text-only.
-// Drop a screenshot path onto any entry later and wire it into ProjectsDone.tsx.
+// "Projects Done" — side projects & tools, each with a homepage screenshot
+// captured from the live site (public/shots, regenerate via headless chromium).
 export const projectsDone: ProjectDone[] = [
-  { name: "GrowthOS", desc: "AI agents turn a marketing goal into channels, plans and copy.", live: "https://www.launchlift.app", github: "https://github.com/louis2688/growthos" },
-  { name: "Business Operation Management System", live: "https://boms-delta.vercel.app/", github: "https://github.com/louis2688/boms" },
-  { name: "Brain Injury Management System", live: "https://bims-sigma.vercel.app", github: "https://github.com/louis2688/bims" },
-  { name: "ChatLayer", desc: "Secure n8n chat, multi-tenant.", live: "https://chatlayer.vercel.app", github: "https://github.com/louis2688/chatlayer" },
-  { name: "Chatflowgate", desc: "Your n8n chat, secured and multi-tenant.", live: "https://www.chatflowgate.com/", github: "https://github.com/louis2688/chatnode" },
-  { name: "PresyoGasPH", desc: "Track fuel prices across Metro Manila.", live: "https://presyogasph.vercel.app", github: "https://github.com/louis2688/PresyoGasPH" },
-  { name: "Tempest CRM", desc: "AI-powered CRM.", live: "https://ai-powered-crm-lemon.vercel.app", github: "https://github.com/louis2688/ai-powered-crm" },
-  { name: "PinoyAppBuilder", desc: "A collection of apps built by Pinoy devs.", live: "https://pinoyappbuilder.vercel.app", github: "https://github.com/louis2688/pinoyappbuilder" },
-  { name: "LargaNa", desc: "Ride-hailing app.", live: "https://largana.vercel.app", github: "https://github.com/louis2688/LargaNa" },
-  { name: "AI Engineering OS", desc: "AI-powered engineering OS.", live: "https://aeios-five.vercel.app", github: "https://github.com/louis2688/AIEOS" },
-  { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", live: "https://jarvis-ai-louis.vercel.app", github: "https://github.com/louis2688/Custom-Jarvis-AI" },
-  { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" },
-  { name: "Renoscan", desc: "AI photo scan to repair shopping list with local store prices.", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" },
+  { name: "GrowthOS", desc: "AI agents turn a marketing goal into channels, plans and copy.", live: "https://www.launchlift.app", github: "https://github.com/louis2688/growthos" , shot: "/shots/growthos.webp" },
+  { name: "Business Operation Management System", live: "https://boms-delta.vercel.app/", github: "https://github.com/louis2688/boms" , shot: "/shots/business-operation-management-system.webp" },
+  { name: "Brain Injury Management System", live: "https://bims-sigma.vercel.app", github: "https://github.com/louis2688/bims" , shot: "/shots/brain-injury-management-system.webp" },
+  { name: "Chatflowgate", desc: "Your n8n chat, secured and multi-tenant.", live: "https://www.chatflowgate.com/", github: "https://github.com/louis2688/chatnode" , shot: "/shots/chatflowgate.webp" },
+  { name: "PresyoGasPH", desc: "Track fuel prices across Metro Manila.", live: "https://presyogasph.vercel.app", github: "https://github.com/louis2688/PresyoGasPH" , shot: "/shots/presyogasph.webp" },
+  { name: "Tempest CRM", desc: "AI-powered CRM.", live: "https://ai-powered-crm-lemon.vercel.app", github: "https://github.com/louis2688/ai-powered-crm" , shot: "/shots/tempest-crm.webp" },
+  { name: "PinoyAppBuilder", desc: "A collection of apps built by Pinoy devs.", live: "https://pinoyappbuilder.vercel.app", github: "https://github.com/louis2688/pinoyappbuilder" , shot: "/shots/pinoyappbuilder.webp" },
+  { name: "LargaNa", desc: "Ride-hailing app.", live: "https://largana.vercel.app", github: "https://github.com/louis2688/LargaNa" , shot: "/shots/largana.webp" },
+  { name: "AI Engineering OS", desc: "AI-powered engineering OS.", live: "https://aeios-five.vercel.app", github: "https://github.com/louis2688/AIEOS" , shot: "/shots/ai-engineering-os.webp" },
+  { name: "Louis Jarvis AI Assistant", desc: "A simple AI-powered Jarvis assistant.", live: "https://jarvis-ai-louis.vercel.app", github: "https://github.com/louis2688/Custom-Jarvis-AI" , shot: "/shots/louis-jarvis-ai-assistant.webp" },
+  { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" , shot: "/shots/svr-booking.webp" },
+  { name: "Renoscan", desc: "AI photo scan to repair shopping list with local store prices.", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" , shot: "/shots/renoscan.webp" },
 ];
 
 // Tools I work with day to day — other people's software, credited to them.

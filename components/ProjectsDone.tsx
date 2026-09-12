@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { projectsDone, projectSlug } from "@/data/content";
 
@@ -21,6 +22,22 @@ export default function ProjectsDone() {
         <div className="projects-grid">
           {projectsDone.map((p, i) => (
             <article className="project-card" data-reveal key={p.github}>
+              {p.shot && (
+                <Link
+                  href={`/projects/${projectSlug(p.name)}`}
+                  className="project-shot"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                >
+                  <Image
+                    src={p.shot}
+                    alt=""
+                    width={800}
+                    height={500}
+                    sizes="(max-width: 720px) 100vw, 33vw"
+                  />
+                </Link>
+              )}
               <div className="project-top caption">
                 <span className="accent">[{String(i + 1).padStart(2, "0")}]</span>
                 {p.live ? (

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { projectsDone, projectSlug, SITE_URL } from "@/data/content";
@@ -35,11 +36,13 @@ export async function generateMetadata({
       url: `${SITE}/projects/${slug}`,
       title: `${p.name} — Louis Madrigal`,
       description,
+      images: [p.shot ?? "/opengraph-image"],
     },
     twitter: {
       card: "summary_large_image",
       title: `${p.name} — Louis Madrigal`,
       description,
+      images: [p.shot ?? "/opengraph-image"],
     },
   };
 }
@@ -65,6 +68,7 @@ export default async function ProjectPage({
         applicationCategory: "WebApplication",
         operatingSystem: "Web",
         offers: { "@type": "Offer", price: 0, priceCurrency: "USD" },
+        ...(p.shot ? { screenshot: `${SITE}${p.shot}` } : {}),
         author: { "@type": "Person", name: "Louis Madrigal", url: SITE },
       },
       {
@@ -99,6 +103,23 @@ export default async function ProjectPage({
       </p>
       <h1 className="project-page-title">{p.name}</h1>
       <p className="project-page-lede">{description}</p>
+
+      {p.shot && p.live && (
+        <a
+          className="project-page-shot glass"
+          href={p.live}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Image
+            src={p.shot}
+            alt={`Homepage of ${p.name}`}
+            width={800}
+            height={500}
+            sizes="(max-width: 960px) 100vw, 912px"
+          />
+        </a>
+      )}
 
       <div className="project-page-actions">
         {p.live && (

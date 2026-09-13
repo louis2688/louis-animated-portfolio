@@ -180,6 +180,7 @@ export const projectsDone: ProjectDone[] = [
   { name: "SVR Booking", desc: "A vehicle booking app.", live: "https://svr-booking-dar.vercel.app", github: "https://github.com/louis2688/svr-booking" , shot: "/shots/svr-booking.webp" },
   { name: "Renoscan", desc: "AI photo scan to repair shopping list with local store prices.", live: "https://renoscan-phi.vercel.app/", github: "https://github.com/louis2688/VwedeCo" , shot: "/shots/renoscan.webp" },
   { name: "CareRoute", desc: "Non-emergency medical transport booking — door-to-door rides to appointments.", live: "https://careroute-rosy.vercel.app/", github: "https://github.com/louis2688/careroute", shot: "/shots/careroute.webp" },
+  { name: "Penstock", desc: "Reservoir and dam operations console with policy-based, district-scoped access control.", live: "https://penstock.vercel.app/", github: "https://github.com/louis2688/penstock", shot: "/shots/penstock.webp" },
 ];
 
 // Tools I work with day to day — other people's software, credited to them.

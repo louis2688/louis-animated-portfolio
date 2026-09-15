@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     "Metro Manila",
     "Philippines",
   ],
-  authors: [{ name: "Louis Madrigal", url: "https://github.com/louis2688" }],
+  authors: [{ name: "Louis Madrigal"/*, url: "https://github.com/louis2688" (GitHub hidden for now) */ }],
   creator: "Louis Madrigal",
   publisher: "Louis Madrigal",
   alternates: {
@@ -107,7 +107,7 @@ const person = {
     addressCountry: "PH",
   },
   sameAs: [
-    "https://github.com/louis2688",
+    // "https://github.com/louis2688", // GitHub hidden for now — uncomment to restore
     "https://www.linkedin.com/in/louismadrigal/",
   ],
   knowsAbout: SKILLS,

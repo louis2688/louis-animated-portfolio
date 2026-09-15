@@ -20,9 +20,12 @@ export default function CodebaseGraph() {
 
         <p className="graph-note" data-reveal>
           Built with{" "}
+          {/* GitHub link hidden for now — uncomment to restore, and delete the plain "graphify" text below.
           <a href="https://github.com/Graphify-Labs/graphify" target="_blank" rel="noreferrer">
             graphify
-          </a>{" "}
+          </a>
+          */}
+          graphify{" "}
           by Graphify-Labs — deterministic AST parsing, every edge traceable to a
           file and line, zero tokens spent.{" "}
           <Link href="/blog/codebase-knowledge-graph-without-embeddings">

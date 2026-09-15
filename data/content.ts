@@ -190,7 +190,7 @@ export type Tool = {
   name: string;
   by: string;
   desc: string;
-  href: string;
+  href?: string; // optional so a link (e.g. a GitHub URL) can be hidden for now
   post?: string; // internal write-up, when I have one
 };
 
@@ -199,7 +199,8 @@ export const tools: Tool[] = [
     name: "graphify",
     by: "Graphify-Labs",
     desc: "Turns a codebase into a queryable knowledge graph with deterministic AST parsing — no embeddings, no token cost.",
-    href: "https://github.com/Graphify-Labs/graphify",
+    // GitHub link hidden for now — uncomment to restore.
+    // href: "https://github.com/Graphify-Labs/graphify",
     post: "/blog/codebase-knowledge-graph-without-embeddings",
   },
   {

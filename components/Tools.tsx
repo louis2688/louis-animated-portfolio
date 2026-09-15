@@ -17,7 +17,7 @@ export default function Tools() {
 
         <div className="projects-grid">
           {tools.map((t, i) => (
-            <article className="project-card" data-reveal key={t.href}>
+            <article className="project-card" data-reveal key={t.name}>
               <div className="project-top caption">
                 <span className="accent">[{String(i + 1).padStart(2, "0")}]</span>
                 <span className="proj-src">BY {t.by.toUpperCase()}</span>
@@ -27,10 +27,12 @@ export default function Tools() {
               <p className="project-desc">{t.desc}</p>
 
               <div className="project-links">
-                <a className="proj-link" href={t.href} target="_blank" rel="noreferrer">
-                  <span>[ SITE&nbsp;→ ]</span>
-                  <span className="proj-url">{t.href.replace(/^https?:\/\//, "")}</span>
-                </a>
+                {t.href && (
+                  <a className="proj-link" href={t.href} target="_blank" rel="noreferrer">
+                    <span>[ SITE&nbsp;→ ]</span>
+                    <span className="proj-url">{t.href.replace(/^https?:\/\//, "")}</span>
+                  </a>
+                )}
                 {t.post && (
                   <Link className="proj-link" href={t.post}>
                     <span>[ I WROTE ABOUT IT&nbsp;→ ]</span>

@@ -435,6 +435,38 @@ section[id], div[id] {
 .hero-line > span {
   display: inline-block;
   will-change: transform;
+  animation: hero-line-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-line:nth-child(1) > span {
+  animation-delay: 0.05s;
+}
+.hero-line:nth-child(2) > span {
+  animation-delay: 0.16s;
+}
+.hero-line:nth-child(3) > span {
+  animation-delay: 0.27s;
+}
+.hero [data-h] {
+  animation: hero-h-in 0.8s ease both;
+  animation-delay: 0.4s;
+}
+@keyframes hero-line-in {
+  from {
+    transform: translateY(115%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes hero-h-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 .hero-title .accent {
   color: #41a4ff;
@@ -1117,12 +1149,13 @@ section[id], div[id] {
   html {
     scroll-behavior: auto;
   }
-  .cursor,
-  .pulse,
   *,
   *::before,
   *::after {
     transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
 /* ---------- project detail page ---------- */

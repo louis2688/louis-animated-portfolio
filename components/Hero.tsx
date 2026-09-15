@@ -10,47 +10,36 @@ const HeroParticles = dynamic(() => import("@/components/HeroParticles"), {
   ssr: false,
 });
 
-export default function Hero({ entered }: { entered: boolean }) {
+export default function Hero() {
   const root = useRef<HTMLElement>(null);
   const heavyFx = useHeavyFx();
 
+  // The intro (title lines + fade-ins) is CSS now so it plays on first paint
+  // without waiting for GSAP. Here we only wire the scroll parallax.
   useEffect(() => {
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let ctx: { revert: () => void } | undefined;
     let cancelled = false;
     loadGsap().then(({ gsap }) => {
       if (cancelled || !root.current) return;
       ctx = gsap.context(() => {
-        // Intro plays once the welcome overlay is dismissed.
-        if (entered && !reduce) {
-          gsap
-            .timeline({ defaults: { ease: "power4.out" } })
-            .from(".hero-line > span", { yPercent: 118, duration: 1.1, stagger: 0.12 }, 0.1)
-            .from(
-              "[data-h]",
-              { y: 24, autoAlpha: 0, duration: 0.8, ease: "power3.out", stagger: 0.08 },
-              "-=0.7"
-            );
-        }
-        if (!reduce) {
-          gsap.to(".hero-media", {
-            yPercent: 16,
-            ease: "none",
-            scrollTrigger: {
-              trigger: root.current,
-              start: "top top",
-              end: "bottom top",
-              scrub: true,
-            },
-          });
-        }
+        gsap.to(".hero-media", {
+          yPercent: 16,
+          ease: "none",
+          scrollTrigger: {
+            trigger: root.current,
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        });
       }, root.current);
     });
     return () => {
       cancelled = true;
       ctx?.revert();
     };
-  }, [entered]);
+  }, []);
 
   return (
     <section id="top" ref={root} className="hero">

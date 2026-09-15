@@ -16,7 +16,7 @@ export default function ProjectsDone() {
             <p className="sec-idx caption">[02] — SIDE PROJECTS &amp; TOOLS</p>
             <h2 className="sec-title">PROJECTS_</h2>
           </div>
-          <p className="sec-note caption">{projectsDone.length} SHIPPED · LIVE + SOURCE</p>
+          <p className="sec-note caption">{projectsDone.length} SHIPPED · LIVE</p>
         </header>
 
         <div className="projects-grid">
@@ -63,10 +63,12 @@ export default function ProjectsDone() {
                     <span className="proj-url">{cleanUrl(p.live)}</span>
                   </a>
                 )}
+                {/* GitHub link hidden for now — uncomment to restore.
                 <a className="proj-link" href={p.github} target="_blank" rel="noreferrer">
                   <span>[ GITHUB&nbsp;→ ]</span>
                   <span className="proj-url">{cleanUrl(p.github)}</span>
                 </a>
+                */}
               </div>
             </article>
           ))}

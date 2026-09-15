@@ -46,7 +46,8 @@ export const navLinks = [
 // ponytail: THETECHNGANI href is a placeholder — drop in the real URL when ready.
 export const socials = [
   { label: "EMAIL", href: "mailto:louismadrigal26@gmail.com" },
-  { label: "GITHUB", href: "https://github.com/louis2688" },
+  // GitHub link hidden for now — restore this entry to bring it back.
+  // { label: "GITHUB", href: "https://github.com/louis2688" },
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/louismadrigal/" },
   { label: "THETECHNGANI", href: "#" },
   { label: "PHONE", href: "tel:+639491861717" },

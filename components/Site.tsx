@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import WelcomeOverlay from "@/components/WelcomeOverlay";
+import { useEffect, useRef } from "react";
 import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import WorkGrid from "@/components/WorkGrid";
@@ -14,16 +13,7 @@ import Footer from "@/components/Footer";
 import { loadGsap } from "@/lib/gsap";
 
 export default function Site() {
-  const [entered, setEntered] = useState(false);
   const mainRef = useRef<HTMLElement>(null);
-
-  // Lock scroll while the welcome overlay is up.
-  useEffect(() => {
-    document.body.style.overflow = entered ? "" : "hidden";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [entered]);
 
   // Shared scroll-reveal for anything tagged data-reveal. GSAP loads lazily.
   useEffect(() => {
@@ -53,10 +43,9 @@ export default function Site() {
 
   return (
     <>
-      {!entered && <WelcomeOverlay onEnter={() => setEntered(true)} />}
       <Nav />
       <main ref={mainRef}>
-        <Hero entered={entered} />
+        <Hero />
         <WorkGrid />
         <ProjectsDone />
         <CodebaseGraph />

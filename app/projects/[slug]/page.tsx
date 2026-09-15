@@ -127,9 +127,11 @@ export default async function ProjectPage({
             [ VISIT LIVE → ]
           </a>
         )}
+        {/* Source button hidden for now — uncomment to restore.
         <a className="btn btn-ghost" href={p.github} target="_blank" rel="noreferrer">
           [ VIEW SOURCE → ]
         </a>
+        */}
       </div>
 
       <ul className="project-page-meta">
@@ -141,12 +143,14 @@ export default async function ProjectPage({
             </a>
           </li>
         )}
+        {/* Source row hidden for now — uncomment to restore.
         <li>
           <span className="caption">SOURCE</span>
           <a href={p.github} target="_blank" rel="noreferrer">
             {cleanUrl(p.github)}
           </a>
         </li>
+        */}
         <li>
           <span className="caption">BY</span>
           <Link href="/">Louis Madrigal — Senior AI Full Stack Developer</Link>

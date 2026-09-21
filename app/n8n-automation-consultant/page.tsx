@@ -33,6 +33,7 @@ const offers = [
     tag: "WORKFLOWS",
     title: "PRODUCTION N8N WORKFLOWS",
     desc: "Workflows that survive contact with real traffic — error handling, retries, idempotency and monitoring, not just nodes that work in the editor. I run n8n in production behind GrowthOS's community-discovery agents.",
+    link: { href: "/blog/n8n-error-handling-production", label: "ERROR HANDLING PLAYBOOK" },
   },
   {
     tag: "SECURITY",

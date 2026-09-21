@@ -105,4 +105,4 @@ I built this pattern once for myself, then realized every n8n user shipping a cu
 
 ## Work with me
 
-I build production AI systems — LLM copilots, RAG pipelines, and the boring infrastructure that keeps them safe at scale. If you need someone who has done this for millions of users, [Get in touch](/#contact).
+I build production AI systems — LLM copilots, RAG pipelines, and the boring infrastructure that keeps them safe at scale. If you want this kind of hardening for your own n8n workflows, I take on [n8n consulting](/n8n-automation-consultant) work. If you need someone who has done this for millions of users, [Get in touch](/#contact).

@@ -5,7 +5,12 @@ export default function Footer() {
     <footer className="footer">
       <div className="container-wide">
         <nav className="footer-links" aria-label="Site and social links">
-          {[{ label: "SERVICES", href: "/services" }, { label: "BLOG", href: "/blog" }, ...socials].map((s) => {
+          {[
+            { label: "SERVICES", href: "/services" },
+            { label: "N8N EXPERT", href: "/n8n-automation-consultant" },
+            { label: "BLOG", href: "/blog" },
+            ...socials,
+          ].map((s) => {
             const ext = s.href.startsWith("http");
             return (
               <a

@@ -21,7 +21,7 @@ export default function ProjectsDone() {
 
         <div className="projects-grid">
           {projectsDone.map((p, i) => (
-            <article className="project-card" data-reveal key={p.github}>
+            <article className="project-card" data-reveal key={p.name}>
               {p.shot && (
                 <Link
                   href={`/projects/${projectSlug(p.name)}`}
